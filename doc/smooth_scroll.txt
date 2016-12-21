@@ -13,7 +13,7 @@ parameters:
 <
                                                 *'g:scroll_disable_mapping'*
 The default mapping can be disabled by setting the following variable.
- >
+>
     let g:scroll_disable_mapping = 1
 <
                                                 *'g:scroll_follow'*
@@ -21,6 +21,6 @@ When the screen is scrolled in vim without this plugin using CTRL-F, the
 cursor only moves because the screen is scrolled far enough that the cursor
 wouldn't be visible and |'scrolloff'| from the top or bottom of the screen.  If
 you'd like the cursor to stay where it is relative to the screen, then set:
- >
+>
     let g:scroll_follow = 1
 <
