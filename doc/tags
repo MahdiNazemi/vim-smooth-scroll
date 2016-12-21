@@ -1,0 +1,6 @@
+'g:scroll_disable_mapping'	smooth_scroll.txt	/*'g:scroll_disable_mapping'*
+'g:scroll_follow'	smooth_scroll.txt	/*'g:scroll_follow'*
+'g:scroll_frame_duration'	smooth_scroll.txt	/*'g:scroll_frame_duration'*
+'g:scroll_lines_per_draw'	smooth_scroll.txt	/*'g:scroll_lines_per_draw'*
+smooth_scroll-config	smooth_scroll.txt	/*smooth_scroll-config*
+smooth_scroll.txt	smooth_scroll.txt	/*smooth_scroll.txt*

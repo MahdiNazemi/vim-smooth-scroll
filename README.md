@@ -1,31 +1,15 @@
 # vim-smooth-scroll
 
-## About
-[vim-smooth-scroll] makes scrolling in Vim nice and smooth. Find yourself completely lost every time you use ```Ctrl-f``` or  ```Ctrl-b```? You might want to give this plugin a try.
+This plugin overwrites CTRL-f, CTRL-b, CTRL-d, CTRL-u, zt, zz, and zb with code that scrolls the lines fluidly to help the user know how far they are scrolling in the file.  Plus it's good looking.
 
 ## Installation
-Install using [Pathogen], [Vundle], [Neobundle], or your favorite Vim package manager.
 
-## Quick Start
-Map your favorite keys like below:
+This is a [Pathogen] compatible plugin.  It requires no configuration, though it can be [tuned].
 
-```vim
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-noremap <silent> zz    :call smooth_scroll#center(g:scroll_frame_duration, g:scroll_lines)<CR>
-noremap <silent> zt    :call smooth_scroll#top(g:scroll_frame_duration, g:scroll_lines)<CR>
-noremap <silent> zb    :call smooth_scroll#bottom(g:scroll_frame_duration, g:scroll_lines)<CR>
-```
+## Developer Notes
 
-## Function
-```smooth_scroll#up``` and ```smooth_scroll#down``` both take the following 3 parameters. Customize it however you like
-- __Distance__: This is the total number of lines you want to scroll
-- __Duration__: This is how long you want each frame of the scrolling animation to last in __milliseconds__. Each frame will take _at least_ this amount of time. It could take more if Vim's scrolling itself is slow
-- __Speed__: This is how many lines to scroll during each frame of the scrolling animation
+This plugin was forked from [terryma/vim-smooth-scroll](https://github.com/terryma/vim-smooth-scroll) which does not support zt, zz, or zb.
 
-[vim-smooth-scroll]:http://github.com/terryma/vim-smooth-scroll
+[terryma/vim-smooth-scroll]:http://github.com/terryma/vim-smooth-scroll
 [Pathogen]:http://github.com/tpope/vim-pathogen
-[Vundle]:http://github.com/gmarik/vundle
-[Neobundle]:http://github.com/Shougo/neobundle.vim
+[tuned]:https://github.com/cskeeters/vim-smooth-scroll/blob/master/doc/smooth_scroll.txt
