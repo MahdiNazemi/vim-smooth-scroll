@@ -14,6 +14,9 @@ noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
+noremap <silent> zz    :call smooth_scroll#center(g:scroll_frame_duration, g:scroll_lines)<CR>
+noremap <silent> zt    :call smooth_scroll#top(g:scroll_frame_duration, g:scroll_lines)<CR>
+noremap <silent> zb    :call smooth_scroll#bottom(g:scroll_frame_duration, g:scroll_lines)<CR>
 ```
 
 ## Function
