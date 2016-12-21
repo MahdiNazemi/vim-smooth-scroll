@@ -1,4 +1,4 @@
-if get(g:,loaded_smooth_scroll, 0) == 1
+if get(g:,'loaded_smooth_scroll', 0) == 1
     finish
 endif
 let g:loaded_smooth_scroll = 1
