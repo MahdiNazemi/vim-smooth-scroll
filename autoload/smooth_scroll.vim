@@ -1,6 +1,5 @@
 " ==============================================================================
-" File: smooth_scroll.vim
-" Author: Terry Ma
+" Author: Chad Skeeters/Terry Ma
 " Description: Scroll the screen smoothly to retain better context. Useful for
 " replacing Vim's default scrolling behavior with CTRL-D, CTRL-U, CTRL-B, and
 " CTRL-F, zz, zt, zb
