@@ -41,15 +41,19 @@ function! smooth_scroll#top()
   let cur_top = line('w0') + &scrolloff
   let target_top = line('.')
   let num_down =  l:target_top - l:cur_top
-  call s:smooth_scroll('d', l:num_down, 0)
+  if l:num_down > 0
+    call s:smooth_scroll('d', l:num_down, 0)
+  endif
 endfunction
 
 " Scroll to the bottom
 function! smooth_scroll#bottom()
-  let cur_bottom = line('w$') - &scrolloff
+  let cur_bottom = line('w0') + winheight(0) - &scrolloff
   let target_bottom = line('.')
   let num_up = l:cur_bottom - l:target_bottom
-  call s:smooth_scroll('u', l:num_up, 0)
+  if l:num_up > 0
+    call s:smooth_scroll('u', l:num_up, 0)
+  endif
 endfunction
 
 " ==============================================================================
@@ -90,11 +94,12 @@ function! s:smooth_scroll(dir, dist, move)
 
   " Make sure we move exactly a:dist when g:scroll_lines_per_draw is not 1
   let extra_lines=a:dist % g:scroll_lines_per_draw
-  echom "el: ".l:extra_lines
-  if a:dir ==# 'd'
-    exec "normal! ".l:extra_lines."\<C-e>".l:extra_lines.l:move_cmd
-  else
-    exec "normal! ".l:extra_lines."\<C-y>".l:extra_lines.l:move_cmd
+  if l:extra_lines != 0
+    if a:dir ==# 'd'
+      exec "normal! ".l:extra_lines."\<C-e>".l:extra_lines.l:move_cmd
+    else
+      exec "normal! ".l:extra_lines."\<C-y>".l:extra_lines.l:move_cmd
+    endif
   endif
 endfunction
 
