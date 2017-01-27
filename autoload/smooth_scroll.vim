@@ -86,7 +86,7 @@ function! s:smooth_scroll(dir, dist, move)
     endif
     redraw
     let elapsed = s:get_ms_since(start)
-    let snooze = float2nr(g:scroll_frame_duration-elapsed)
+    let snooze = g:scroll_frame_duration-l:elapsed
     if snooze > 0
       exec "sleep ".snooze."m"
     endif
@@ -105,6 +105,6 @@ endfunction
 
 function! s:get_ms_since(time)
   let cost = split(reltimestr(reltime(a:time)), '\.')
-  return str2nr(cost[0])*1000 + str2nr(cost[1])/1000.0
+  return str2nr(cost[0])*1000 + str2nr(cost[1])/1000
 endfunction
 
