@@ -3,6 +3,11 @@ if get(g:,'loaded_smooth_scroll', 0) == 1
 endif
 let g:loaded_smooth_scroll = 1
 
+if !has("reltime")
+    echom "vim-smooth-scroll requires +reltime feature"
+    finish
+endif
+
 " Set the redraw variables to reasonable defaults
 if !exists("g:scroll_lines_per_draw")
     if has("gui")
