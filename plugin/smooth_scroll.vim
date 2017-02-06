@@ -27,10 +27,10 @@ endif
 
 " Replace scroll keys
 if get(g:, "scroll_disable_mapping", 0) != 1
-    noremap <silent> <c-u> :call smooth_scroll#up(  &scroll)<CR>
-    noremap <silent> <c-d> :call smooth_scroll#down(&scroll)<CR>
-    noremap <silent> <c-b> :call smooth_scroll#up(  &scroll*2)<CR>
-    noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2)<CR>
+    nnoremap <silent> <c-u> :call smooth_scroll#up(  &scroll)<CR>
+    nnoremap <silent> <c-d> :call smooth_scroll#down(&scroll)<CR>
+    nnoremap <silent> <c-b> :call smooth_scroll#up(  &scroll*2)<CR>
+    nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2)<CR>
     noremap <silent> zz :call smooth_scroll#center()<CR>
     noremap <silent> zt :call smooth_scroll#top()<CR>
     noremap <silent> zb :call smooth_scroll#bottom()<CR>
