@@ -15,12 +15,14 @@ set cpo&vim
 
 " Scroll the screen up
 function! smooth_scroll#up(dist)
-  call s:smooth_scroll('u', a:dist, get(g:, 'scroll_follow', 0))
+  let move_only = max([0, &scrolloff - (line('w$') - line("."))])
+  call s:smooth_scroll('u', a:dist - l:move_only, 1)
 endfunction
 
 " Scroll the screen down
 function! smooth_scroll#down(dist)
-  call s:smooth_scroll('d', a:dist, get(g:, 'scroll_follow', 0))
+  let move_only = max([0, &scrolloff - (line(".") - line('w0'))])
+  call s:smooth_scroll('d', a:dist - l:move_only, 1)
 endfunction
 
 " Scroll to the center
@@ -74,33 +76,59 @@ function! s:smooth_scroll(dir, dist, move)
     endif
   endif
 
-  for i in range(a:dist/g:scroll_lines_per_draw)
+  let last_snooze=0
+
+  if a:dir ==# 'd'
+    let direction_mult=1
+  else
+    let direction_mult=-1
+  endif
+
+  let current_line=line(".")
+  let target_line=l:current_line + a:dist * l:direction_mult
+
+  " Attempt a little bit faster each time in case we have a slow run
+  let l:scroll_lines_per_draw = 1
+
+  " This will work no matter which direction we are going
+  while l:current_line != l:target_line
     let start = reltime()
     " Moving the cursor first and then scrolling the window results in cursor
     " showing up in the correct position upon redraw.  Not sure why
-    exec "normal! ".g:scroll_lines_per_draw.l:move_cmd
-    if a:dir ==# 'd'
-      exec "normal! ".g:scroll_lines_per_draw."\<C-e>"
-    else
-      exec "normal! ".g:scroll_lines_per_draw."\<C-y>"
+    exec "normal! ".l:scroll_lines_per_draw.l:move_cmd
+    if a:move == 0 || line(".") - line('w0') >= &scrolloff
+        if a:dir ==# 'd'
+            exec "normal! ".l:scroll_lines_per_draw."\<C-e>"
+        else
+            exec "normal! ".l:scroll_lines_per_draw."\<C-y>"
+        endif
     endif
+    let current_line+=l:scroll_lines_per_draw * l:direction_mult
+
     redraw
+
     let elapsed = s:get_ms_since(start)
-    let snooze = g:scroll_frame_duration-l:elapsed
-    if snooze > 0
+
+
+    let scroll_frame_duration = l:scroll_lines_per_draw * g:ms_per_line
+    let snooze = l:scroll_frame_duration-l:elapsed
+    if l:snooze > 0
       exec "sleep ".snooze."m"
     endif
-  endfor
 
-  " Make sure we move exactly a:dist when g:scroll_lines_per_draw is not 1
-  let extra_lines=a:dist % g:scroll_lines_per_draw
-  if l:extra_lines != 0
-    if a:dir ==# 'd'
-      exec "normal! ".l:extra_lines."\<C-e>".l:extra_lines.l:move_cmd
-    else
-      exec "normal! ".l:extra_lines."\<C-y>".l:extra_lines.l:move_cmd
+    if l:scroll_frame_duration > l:elapsed*1.1 && l:scroll_lines_per_draw > 1
+      " We can go faster
+      let l:scroll_lines_per_draw = max([1, l:scroll_lines_per_draw-1])
+    elseif l:scroll_frame_duration < l:elapsed*0.9
+      " We need to go slower
+      let l:scroll_lines_per_draw += 1
     endif
-  endif
+
+    if l:scroll_lines_per_draw > abs(l:current_line - l:target_line)
+      let l:scroll_lines_per_draw = abs(l:current_line - l:target_line)
+    endif
+  endwhile
+
 endfunction
 
 function! s:get_ms_since(time)

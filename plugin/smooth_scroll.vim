@@ -8,21 +8,9 @@ if !has("reltime")
     finish
 endif
 
-" Set the redraw variables to reasonable defaults
-if !exists("g:scroll_lines_per_draw")
-    if has("gui")
-        let g:scroll_lines_per_draw=1
-    else
-        let g:scroll_lines_per_draw=3
-    endif
-endif
-
-if !exists("g:scroll_frame_duration")
-    if has("gui")
-        let g:scroll_frame_duration=10
-    else
-        let g:scroll_frame_duration=50
-    endif
+" This controls how fast the window scrolls.
+if !exists("g:ms_per_line")
+    let g:ms_per_line=8
 endif
 
 " Replace scroll keys

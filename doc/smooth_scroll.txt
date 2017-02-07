@@ -3,24 +3,14 @@
                                                 *smooth_scroll-config*
 This plugin requires no configuration.
 
-                                                *'g:scroll_lines_per_draw'*
-                                                *'g:scroll_frame_duration'*
-If you'd like to tune how the scroll looks, you can modify the following
-parameters:
+                                                *'g:ms_per_line'*
+Change this value to control how quickly the window scrolls.  Smaller numbers
+scroll quicker.
 >
-    let g:scroll_lines_per_draw=1
-    let g:scroll_frame_duration=10
+    let g:ms_per_line=8
 <
                                                 *'g:scroll_disable_mapping'*
 The default mapping can be disabled by setting the following variable.
 >
     let g:scroll_disable_mapping = 1
-<
-                                                *'g:scroll_follow'*
-When the screen is scrolled in vim without this plugin using CTRL-F, the
-cursor only moves because the screen is scrolled far enough that the cursor
-wouldn't be visible and |'scrolloff'| from the top or bottom of the screen.  If
-you'd like the cursor to stay where it is relative to the screen, then set:
->
-    let g:scroll_follow = 1
 <
