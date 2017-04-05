@@ -3,7 +3,6 @@
 " Description: Scroll the screen smoothly to retain better context. Useful for
 " replacing Vim's default scrolling behavior with CTRL-D, CTRL-U, CTRL-B, and
 " CTRL-F, zz, zt, zb
-" Last Modified: Dec 21st 2016
 " ==============================================================================
 
 let s:save_cpo = &cpo
@@ -26,7 +25,12 @@ function! smooth_scroll#down(dist)
 endfunction
 
 " Scroll to the center
-function! smooth_scroll#center()
+function! smooth_scroll#center(visual)
+  if a:visual
+    normal! gv
+  endif
+  let saved_mode=mode()
+
   let half_win = (winheight(0) + 1) / 2
   let cur_center = line('w0') + l:half_win - 1
   let target_center = line('.')
@@ -36,25 +40,50 @@ function! smooth_scroll#center()
   else
     call s:smooth_scroll('u', -l:num_down, 0)
   endif
+
+  " Restore visual mode
+  if l:saved_mode == "v" || l:saved_mode == "V"
+    normal gv
+  endif
 endfunction
 
 " Scroll to the top
-function! smooth_scroll#top()
+function! smooth_scroll#top(visual)
+  if a:visual
+    normal! gv
+  endif
+  let saved_mode=mode()
+
   let cur_top = line('w0') + &scrolloff
   let target_top = line('.')
   let num_down =  l:target_top - l:cur_top
   if l:num_down > 0
     call s:smooth_scroll('d', l:num_down, 0)
   endif
+
+  " Restore visual mode
+  if l:saved_mode == "v" || l:saved_mode == "V"
+    normal gv
+  endif
 endfunction
 
 " Scroll to the bottom
-function! smooth_scroll#bottom()
+function! smooth_scroll#bottom(visual)
+  if a:visual
+    normal! gv
+  endif
+  let saved_mode=mode()
+
   let cur_bottom = line('w0') + winheight(0) - &scrolloff
   let target_bottom = line('.')
   let num_up = l:cur_bottom - l:target_bottom
   if l:num_up > 0
     call s:smooth_scroll('u', l:num_up, 0)
+  endif
+
+  " Restore visual mode
+  if l:saved_mode == "v" || l:saved_mode == "V"
+    normal gv
   endif
 endfunction
 
