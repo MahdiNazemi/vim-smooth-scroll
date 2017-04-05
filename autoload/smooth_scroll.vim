@@ -74,7 +74,7 @@ function! smooth_scroll#bottom(visual)
   endif
   let saved_mode=mode()
 
-  let cur_bottom = line('w0') + winheight(0) - &scrolloff
+  let cur_bottom = line('w0') + winheight(0) - &scrolloff - 1
   let target_bottom = line('.')
   let num_up = l:cur_bottom - l:target_bottom
   if l:num_up > 0
