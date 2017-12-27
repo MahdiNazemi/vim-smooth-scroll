@@ -116,6 +116,12 @@ function! s:smooth_scroll(dir, dist, move)
   let current_line=line(".")
   let target_line=l:current_line + a:dist * l:direction_mult
 
+  if a:move == 1
+    " Set bounds for target_line to file start and end
+    let l:target_line = max([1, l:target_line])
+    let l:target_line = min([line("$"), l:target_line])
+  endif
+
   " Attempt a little bit faster each time in case we have a slow run
   let l:scroll_lines_per_draw = 1
 
