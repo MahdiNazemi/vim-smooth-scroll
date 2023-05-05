@@ -59,7 +59,10 @@ function! smooth_scroll#top(visual)
   let context_height = 0
   if match(&runtimepath, 'context\.vim') != -1
     let [_, context_height] = context#context#get(context#line#get_base_line(line('.')))
-    let context_height += 1
+    " Make room for the context separator line
+    if context_height > 0
+      let context_height += 1
+    endif
   endif
   let num_down =  l:target_top - l:cur_top - l:context_height
   if l:num_down > 0
