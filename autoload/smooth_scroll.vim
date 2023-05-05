@@ -56,11 +56,12 @@ function! smooth_scroll#top(visual)
 
   let cur_top = line('w0') + &scrolloff
   let target_top = line('.')
-  let context_height = -1
+  let context_height = 0
   if match(&runtimepath, 'context\.vim') != -1
     let [_, context_height] = context#context#get(context#line#get_base_line(line('.')))
+    let context_height += 1
   endif
-  let num_down =  l:target_top - l:cur_top - (l:context_height + 1)
+  let num_down =  l:target_top - l:cur_top - l:context_height
   if l:num_down > 0
     call s:smooth_scroll('d', l:num_down, 0)
   endif
